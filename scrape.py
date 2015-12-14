@@ -2,18 +2,16 @@
 
 from bs4 import BeautifulSoup
 from hashlib import md5
+import requests
 
-soup = BeautifulSoup(open("out.html"), 'html.parser')
-roi = None
-for x in soup.find_all('div'):
-  # if "class" in x.attrs and "row-forecast" in x['class']:
-  #   print x.get_text()
-  if "id" in x.attrs and "detailed-forecast-body" in x['id']:
-    #print x.get_text()
-    #print x.head
-    roi = x
-    break
+#soup = BeautifulSoup(open("out.html"), 'html.parser')
+response = requests.get('http://forecast.weather.gov/MapClick.php?map.x=241&map.y=170&minlon=-121.29&maxlon=-117.61&minlat=32.65&maxlat=35.81&mapwidth=354&site=lox&zmx=1&zmy=1')
+soup = BeautifulSoup(response.content, 'html.parser')
+roi = soup.find(id="detailed-forecast-body")
 
+
+#print roi.text
 m = md5()
-m.update(roi.text)
-m.digest()
+m.update(unicode(roi))
+print m.hexdigest()
+print roi
