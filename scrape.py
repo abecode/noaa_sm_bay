@@ -9,7 +9,7 @@ import sqlite3
 
 #soup = BeautifulSoup(open("out.html"), 'html.parser')
 
-ts = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+ts = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime())
 
 
 response = requests.get('http://forecast.weather.gov/MapClick.php?map.x=241&map.y=170&minlon=-121.29&maxlon=-117.61&minlat=32.65&maxlat=35.81&mapwidth=354&site=lox&zmx=1&zmy=1')
